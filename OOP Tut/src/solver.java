@@ -7,9 +7,6 @@ public class solver {
 	}
 
 	public static void solve(GameGrid game) {
-		/*
-		 * right so instead of looking at the solution I kept trying to make my own solver, finally got a solution!
-		 */
 		ArrayList<Cell> cells = new ArrayList<>(); 
 		for (int y = 0; y < GameGrid.GRID_DIM; y++) {
 			for (int x = 0; x < GameGrid.GRID_DIM; x++) {

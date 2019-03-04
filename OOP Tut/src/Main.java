@@ -6,7 +6,7 @@ public class Main {
 
 	public static void printMenu() {
 		System.out.print(
-				"\n" + "1. Set field\n" + "2. Clear field\n" + "3. Print game\n" + "4. Exit\n\n" + "Select an action [1-4]: ");
+				"1. Set field\n" + "2. Clear field\n" + "3. Print game\n" + "4. Exit\n" + "5. Solve\n\n" + "Select an action [1-4]: ");
 	}
 
 	public static int parseInput() {
@@ -41,24 +41,32 @@ public class Main {
 			int input = parseInput();
 			switch (input) {
 			case 1:
-				int x = requestInt("x coordinate", 1, 9)-1;
+				int x = requestInt("x coordiate", 1, 9)-1;
 				int y = requestInt("y coordinate", 1, 9)-1; 
-				int newVal = requestInt("new value:", 1, 9); 
+				int newVal = requestInt("new value", 1, 9); 
 				game.setField(x, y, newVal);
+				System.out.println();
 				break;
 			case 2:
-				int xa = requestInt("x coordinate", 1, 9)-1;
-				int ya = requestInt("y coordinate", 1, 9)-1; 
-				game.clearField(xa, ya);
+				int x1 = requestInt("x coordinate", 1, 9)-1;
+				int y1 = requestInt("y coordinate", 1, 9)-1; 
+				game.clearField(x1, y1);
+				System.out.println();
 				break;
 			case 3:
 				game.printGrid();
+				System.out.println();
 				break;
 			case 4:
 				System.exit(0);
 				break;
+			case 5:
+				GameGrid temp = game;
+				solver.solve(temp);
+				break;
 			default:
 				System.out.println("Please enter a valid number");
+				System.out.println();
 				break;
 			}
 		}

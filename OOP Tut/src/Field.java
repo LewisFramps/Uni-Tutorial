@@ -24,4 +24,8 @@ public class Field {
 	public int getValue() {
 		return this.value;
 	}
+	
+	public boolean getInitial() {
+		return this.initial;
+	}
 }

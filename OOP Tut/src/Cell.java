@@ -6,7 +6,7 @@ public class Cell {
 	public Cell(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.val = 0;
+		this.val = 1;
 	}
 	public int getX() {
 		return this.x;

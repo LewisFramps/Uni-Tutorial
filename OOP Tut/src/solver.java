@@ -1,39 +1,40 @@
-import java.util.Stack;
-
+import java.util.ArrayList;
 
 public class solver {
 
-	public solver(){
-		
+	public solver() {
+
 	}
-	
-	
+
 	public static void solve(GameGrid game) {
-		Stack<Cell> posStack = new Stack<>();
-		for(int y = 0; y < GameGrid.GRID_DIM; y++) {
-			for(int x = 0; x < GameGrid.GRID_DIM; x++) {
-				if(!game.isInitial(x, y)) {
-					Cell temp = new Cell(x, y);
-					temp.setVal(game.getField(x, y));
-					temp.iterateVal();
-					while(temp.getVal() < 9 && !game.isValid(x, y, temp.getVal())) {
-						temp.iterateVal();
-					}
-					System.out.printf("(%d, %d) : %d : ", x, y, temp.getVal());
-					System.out.println(game.isValid(x, y, temp.getVal()));
-					game.printGrid();
-					if(game.isValid(x, y, temp.getVal()) && temp.getVal() < 10) {
-						System.out.println("YES");
-						posStack.push(temp);
-						game.setField(x, y, posStack.peek().getVal());
-					} else {
-						System.out.println("NO");
-						posStack.pop();
-						x = posStack.peek().getX();
-						y = posStack.peek().getY();
-					}
-				}
+		/*
+		 * right so instead of looking at the solution I kept trying to make my own solver, finally got a solution!
+		 */
+		ArrayList<Cell> cells = new ArrayList<>(); 
+		for (int y = 0; y < GameGrid.GRID_DIM; y++) {
+			for (int x = 0; x < GameGrid.GRID_DIM; x++) {
+				if (!game.isInitial(x, y))
+					cells.add(new Cell(x, y));
 			}
 		}
+		int i = 0;
+		while (game.getField(GameGrid.GRID_DIM - 1, GameGrid.GRID_DIM - 1) == GameGrid.EMPTY_VAL) {
+			boolean valid = false;
+			for (int num = cells.get(i).getVal(); num < GameGrid.EMPTY_VAL + 1; num++) {
+				if (game.isValid(cells.get(i).getX(), cells.get(i).getY(), num)) {
+					game.setField(cells.get(i).getX(), cells.get(i).getY(), num);
+					cells.get(i).setVal(num);
+					i++;
+					valid = true;
+					break;
+				}
+			}
+			if (!valid) {
+				cells.get(i).setVal(1);
+				game.clearField(cells.get(i).getX(), cells.get(i).getY());
+				i--;
+			}
+		}
+		game.printGrid();
 	}
 }
